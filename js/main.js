@@ -8,7 +8,7 @@ function getRandomNumber(from, to) {
 getRandomNumber(5, 10);
 
 function checkMaxLength(checkString, maxLength) {
-  return (maxLength > checkString.length);
+  return (maxLength >= checkString.length);
 }
 
 checkMaxLength('Hello', 4);
