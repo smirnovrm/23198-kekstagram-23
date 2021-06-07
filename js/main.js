@@ -21,7 +21,15 @@ const NAMES = [
 ];
 
 const COUNT_POST_PHOTO = 25;
+const MIN_COUNT_COMMENT = 1;
 const MAX_COUNT_COMMENT = 3;
+const MIN_COUNT_ID = 1;
+const MAX_COUNT_ID = 10000;
+const MIN_AVATAR_NUMBER = 1;
+const MAX_AVATAR_NUMBER = 6;
+const MIN_LIKES_NUMBER = 15;
+const MAX_LIKES_NUMBER = 200;
+
 
 //В качестве образца для функции взял пример из
 //https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
@@ -42,16 +50,16 @@ function getRandomElements(elements) {
   return elements[getRandomNumber(0, elements.length-1)];
 }
 
-function createComment(commentCount) {
+function createComments(commentCount) {
   const comments = [];
 
   for (let count = 1; count <= commentCount; count++) {
-    comments[count-1] = {
-      id: count * getRandomNumber(1, 10000),
-      avatar: `img/avatar-${getRandomNumber(1, 6)}.svg`,
+    comments.push({
+      id: getRandomNumber(MIN_COUNT_ID, MAX_COUNT_ID),
+      avatar: `img/avatar-${getRandomNumber(MIN_AVATAR_NUMBER, MAX_AVATAR_NUMBER)}.svg`,
       message: getRandomElements(COMMENTS),
       name: getRandomElements(NAMES),
-    };
+    });
   }
   return comments;
 }
@@ -60,13 +68,13 @@ function createPostPhoto(countPost, maxCountComment = 1) {
   const posts = [];
 
   for (let count = 1; count <= countPost; count++) {
-    posts[count - 1] = {
+    posts.push({
       id: count,
       url: `photo/${count}.jpg`,
       description: 'Описание фотографии',
-      likes: getRandomNumber(5, 50),
-      comments: createComment(getRandomNumber(1, maxCountComment)),
-    };
+      likes: getRandomNumber(MIN_LIKES_NUMBER, MAX_LIKES_NUMBER),
+      comments: createComments(getRandomNumber(MIN_COUNT_COMMENT, maxCountComment)),
+    });
   }
   return posts;
 }
