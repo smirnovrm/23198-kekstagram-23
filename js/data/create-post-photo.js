@@ -51,7 +51,7 @@ function createPostPhoto(countPost, maxCountComment = 1) {
   for (let count = 1; count <= countPost; count++) {
     posts.push({
       id: count,
-      url: `photo/${count}.jpg`,
+      url: `photos/${count}.jpg`,
       description: 'Описание фотографии',
       likes: getRandomNumber(MIN_LIKES_NUMBER, MAX_LIKES_NUMBER),
       comments: createComments(getRandomNumber(MIN_COUNT_COMMENT, maxCountComment)),
