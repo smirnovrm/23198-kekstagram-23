@@ -5,17 +5,18 @@ function fullsizeImage(data) {
   document.querySelector('.social__caption').textContent = data.description;
 
   const listComments = document.querySelector('.social__comments');
-  listComments.innerHTML = '';
+  const listComment = listComments.querySelector('.social__comment').cloneNode(true);
+  const fragment = document.createDocumentFragment();
+  listComments.textContent = '';
+
   data.comments.forEach((comment) => {
-    listComments.innerHTML += `<li class="social__comment">
-                              <img
-                                  class="social__picture"
-                                  src="${comment.avatar}"
-                                  alt="${comment.name}"
-                                  width="35" height="35">
-                              <p class="social__text">${comment.message}</p>
-                            </li>`;
+    const element = listComment.cloneNode(true);
+    element.querySelector('.social__picture').src = comment.avatar;
+    element.querySelector('.social__picture').alt = comment.name;
+    element.querySelector('.social__text').textContent = comment.message;
+    fragment.appendChild(element);
   });
+  listComments.appendChild(fragment);
 }
 
 export {fullsizeImage};
