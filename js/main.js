@@ -3,6 +3,7 @@ import {previewImage} from './image/preview-image.js';
 import {fullsizeImage} from './image/fullsize-image.js';
 import {validComment, validTag} from './image/form-image.js';
 import {zoomImageDown, zoomImageUp} from './image/zoom-image.js';
+import {addEffect} from './image/add-effect.js';
 
 const COUNT_POST_PHOTO = 25;
 const MAX_COUNT_COMMENT = 3;
@@ -50,6 +51,7 @@ document.querySelector('#upload-file').addEventListener('change', () => {
   validTag();
   document.querySelector('.scale__control--smaller').addEventListener('click', zoomImageDown);
   document.querySelector('.scale__control--bigger').addEventListener('click', zoomImageUp);
+  document.querySelector('.effects__list').addEventListener('change', addEffect);
 });
 
 document.querySelector('.img-upload__cancel').addEventListener('click', () => {
