@@ -2,8 +2,8 @@ import {createPostPhoto} from './data/create-post-photo.js';
 import {previewImage} from './image/preview-image.js';
 import {fullsizeImage} from './image/fullsize-image.js';
 import {validComment, validTag} from './image/form-image.js';
-import {zoomImageDown, zoomImageUp} from './image/zoom-image.js';
-import {addEffect} from './image/add-effect.js';
+import {zoomImageDown, zoomImageDrop, zoomImageUp} from './image/zoom-image.js';
+import {addEffect, dropEffect} from './image/add-effect.js';
 
 const COUNT_POST_PHOTO = 25;
 const MAX_COUNT_COMMENT = 3;
@@ -58,6 +58,8 @@ document.querySelector('.img-upload__cancel').addEventListener('click', () => {
   uploadInput.value = '';
   uploadFormImage.classList.add('hidden');
   document.body.classList.remove('modal-open');
+  zoomImageDrop();
+  dropEffect();
 });
 
 window.addEventListener('keydown', (evt) => {
@@ -68,5 +70,7 @@ window.addEventListener('keydown', (evt) => {
     uploadInput.value = '';
     uploadFormImage.classList.add('hidden');
     document.body.classList.remove('modal-open');
+    zoomImageDrop();
+    dropEffect();
   }
 });
