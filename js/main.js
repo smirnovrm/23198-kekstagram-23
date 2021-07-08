@@ -2,6 +2,8 @@ import {createPostPhoto} from './data/create-post-photo.js';
 import {previewImage} from './image/preview-image.js';
 import {fullsizeImage} from './image/fullsize-image.js';
 import {validComment, validTag} from './image/form-image.js';
+import {zoomImageDown, zoomImageDrop, zoomImageUp} from './image/zoom-image.js';
+import {addEffect, dropEffect} from './image/add-effect.js';
 
 const COUNT_POST_PHOTO = 25;
 const MAX_COUNT_COMMENT = 3;
@@ -47,21 +49,28 @@ document.querySelector('#upload-file').addEventListener('change', () => {
   document.body.classList.add('modal-open');
   validComment();
   validTag();
+  document.querySelector('.scale__control--smaller').addEventListener('click', zoomImageDown);
+  document.querySelector('.scale__control--bigger').addEventListener('click', zoomImageUp);
+  document.querySelector('.effects__list').addEventListener('change', addEffect);
 });
 
 document.querySelector('.img-upload__cancel').addEventListener('click', () => {
   uploadInput.value = '';
   uploadFormImage.classList.add('hidden');
   document.body.classList.remove('modal-open');
+  zoomImageDrop();
+  dropEffect();
 });
 
 window.addEventListener('keydown', (evt) => {
   if (hashtagInput === document.activeElement || commentInput === document.activeElement) {
+    document.body.classList.add('modal-open');
     return null;
   } else if (evt.keyCode === 27) {
     uploadInput.value = '';
     uploadFormImage.classList.add('hidden');
     document.body.classList.remove('modal-open');
+    zoomImageDrop();
+    dropEffect();
   }
 });
-
