@@ -19,4 +19,21 @@ function fullsizeImage(data) {
   listComments.appendChild(fragment);
 }
 
-export {fullsizeImage};
+function addFullImageHandler(data) {
+  const pictureList = document.querySelectorAll('.picture');
+  const bigPictureModal = document.querySelector('.big-picture');
+  const commentCount = document.querySelector('.social__comment-count');
+  const commentsLoader = document.querySelector('.comments-loader');
+  pictureList.forEach((picture, pictureIndex) => {
+    picture.addEventListener('click', (evt) => {
+      evt.preventDefault();
+      bigPictureModal.classList.remove('hidden');
+      document.body.classList.add('modal-open');
+      fullsizeImage(data[pictureIndex]);
+      commentCount.classList.add('hidden');
+      commentsLoader.classList.add('hidden');
+    });
+  });
+}
+
+export {addFullImageHandler};

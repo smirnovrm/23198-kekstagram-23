@@ -1,36 +1,20 @@
-import {createPostPhoto} from './data/create-post-photo.js';
 import {previewImage} from './image/preview-image.js';
-import {fullsizeImage} from './image/fullsize-image.js';
+import {addFullImageHandler} from './image/fullsize-image.js';
 import {validComment, validTag} from './image/form-image.js';
-import {zoomImageDown, zoomImageDrop, zoomImageUp} from './image/zoom-image.js';
-import {addEffect, dropEffect} from './image/add-effect.js';
+import {zoomImageDown, zoomImageUp} from './image/zoom-image.js';
+import {addEffect} from './image/add-effect.js';
+import {uploadData} from './data/upload-data.js';
+import {uploadImage} from './data/upload-image.js';
+import {addErrorBox, renderMessageModal} from './data/message.js';
+import {closeUploadForm} from './utils/close-upload-form.js';
 
-const COUNT_POST_PHOTO = 25;
-const MAX_COUNT_COMMENT = 3;
-const data = createPostPhoto(COUNT_POST_PHOTO, MAX_COUNT_COMMENT);
-
-previewImage(data);
+uploadData(previewImage, addFullImageHandler, addErrorBox);
 
 const bigPictureModal = document.querySelector('.big-picture');
-const commentCount = document.querySelector('.social__comment-count');
-const commentsLoader = document.querySelector('.comments-loader');
-const pictures = document.querySelectorAll('.picture');
-
 const uploadFormImage = document.querySelector('.img-upload__overlay');
-const uploadInput = document.querySelector('.img-upload__input');
+// const uploadInput = document.querySelector('.img-upload__input');
 const hashtagInput = uploadFormImage.querySelector('.text__hashtags');
 const commentInput = uploadFormImage.querySelector('.text__description');
-
-pictures.forEach((picture, pictureIndex) => {
-  picture.addEventListener('click', (evt) => {
-    evt.preventDefault();
-    bigPictureModal.classList.remove('hidden');
-    document.body.classList.add('modal-open');
-    fullsizeImage(data[pictureIndex]);
-    commentCount.classList.add('hidden');
-    commentsLoader.classList.add('hidden');
-  });
-});
 
 document.querySelector('.big-picture__cancel').addEventListener('click', () => {
   bigPictureModal.classList.add('hidden');
@@ -55,11 +39,7 @@ document.querySelector('#upload-file').addEventListener('change', () => {
 });
 
 document.querySelector('.img-upload__cancel').addEventListener('click', () => {
-  uploadInput.value = '';
-  uploadFormImage.classList.add('hidden');
-  document.body.classList.remove('modal-open');
-  zoomImageDrop();
-  dropEffect();
+  closeUploadForm();
 });
 
 window.addEventListener('keydown', (evt) => {
@@ -67,10 +47,27 @@ window.addEventListener('keydown', (evt) => {
     document.body.classList.add('modal-open');
     return null;
   } else if (evt.keyCode === 27) {
-    uploadInput.value = '';
-    uploadFormImage.classList.add('hidden');
-    document.body.classList.remove('modal-open');
-    zoomImageDrop();
-    dropEffect();
+    closeUploadForm();
   }
 });
+
+const sendForm = document.querySelector('.img-upload__form');
+
+const setUserFormSubmit = (onSuccess, onError) => {
+  sendForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    uploadImage(new FormData(evt.target), () => onSuccess(), () => onError());
+  });
+};
+
+const executeFormSuccess = () => {
+  closeUploadForm();
+  renderMessageModal('success');
+};
+
+const executeFormError = () => {
+  closeUploadForm();
+  renderMessageModal('error');
+};
+
+setUserFormSubmit(executeFormSuccess, executeFormError);
