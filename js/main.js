@@ -12,7 +12,6 @@ uploadData(previewImage, addFullImageHandler, addErrorBox);
 
 const bigPictureModal = document.querySelector('.big-picture');
 const uploadFormImage = document.querySelector('.img-upload__overlay');
-// const uploadInput = document.querySelector('.img-upload__input');
 const hashtagInput = uploadFormImage.querySelector('.text__hashtags');
 const commentInput = uploadFormImage.querySelector('.text__description');
 
