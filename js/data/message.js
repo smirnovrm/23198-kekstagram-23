@@ -33,19 +33,18 @@ function hideMessageModal(){
   }
 }
 
-function onDocumentClick(evt){
+function onDocumentEvent(evt){
   if (!evt.target.closest('.success__inner') && !evt.target.closest('.error__inner')) {
     hideMessageModal();
-    document.removeEventListener('click', onDocumentClick);
   }
-}
 
-function onDocumentKeydown(evt){
   if (evt.keyCode === 27) {
     evt.preventDefault();
     hideMessageModal();
-    document.removeEventListener('keydown', onDocumentKeydown);
   }
+
+  document.removeEventListener('click', onDocumentEvent);
+  document.removeEventListener('keydown', onDocumentEvent);
 }
 
 function messageModalButtonClick() {
@@ -57,8 +56,8 @@ const renderMessageModal = (type) => {
   document.body.appendChild(messagePopup);
   const messagePopupButton = messagePopup.querySelector('button');
   messagePopupButton.addEventListener('click', messageModalButtonClick);
-  document.addEventListener('click', onDocumentClick);
-  document.addEventListener('keydown', onDocumentKeydown);
+  document.addEventListener('click', onDocumentEvent);
+  document.addEventListener('keydown', onDocumentEvent);
 };
 
 export {addErrorBox, renderMessageModal};
