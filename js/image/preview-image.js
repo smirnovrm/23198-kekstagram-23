@@ -3,6 +3,7 @@ function previewImage(data) {
   const templateFragment = document.querySelector('#picture').content;
   const template = templateFragment.querySelector('.picture');
   const fragment = document.createDocumentFragment();
+  // console.log(data.length);
 
   for (let i = 0; i < data.length; i++) {
     const element = template.cloneNode(true);
