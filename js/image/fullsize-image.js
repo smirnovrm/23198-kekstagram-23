@@ -1,3 +1,10 @@
+const bigPictureBlock = document.querySelector('.big-picture');
+const imageListComments = bigPictureBlock.querySelector('.social__comments');
+const loadMoreCommentsButton = bigPictureBlock.querySelector('.comments-loader');
+const bigPictureCommentsCount = bigPictureBlock.querySelector('.social__comment-count');
+let commentIndex = 0;
+const COMMENT_NUMBER = 5;
+
 function fullsizeImage(data) {
   document.querySelector('.big-picture__img img').src = data.url;
   document.querySelector('.likes-count').textContent = data.likes;
@@ -14,26 +21,39 @@ function fullsizeImage(data) {
     element.querySelector('.social__picture').src = comment.avatar;
     element.querySelector('.social__picture').alt = comment.name;
     element.querySelector('.social__text').textContent = comment.message;
+    element.classList.add('hidden');
     fragment.appendChild(element);
   });
   listComments.appendChild(fragment);
 }
 
+function showComments() {
+  const comments = imageListComments.children;
+  const commentsCount = imageListComments.children.length;
+  const nextCommentIndex = (commentsCount > commentIndex + COMMENT_NUMBER) ? commentIndex + COMMENT_NUMBER : commentsCount;
+  for (let index = commentIndex; index <= nextCommentIndex - 1; index++) {
+    comments[index].classList.remove('hidden');
+  }
+  loadMoreCommentsButton.classList.toggle('hidden', commentsCount === nextCommentIndex);
+  bigPictureCommentsCount.firstChild.textContent = `${nextCommentIndex} из `;
+  commentIndex = nextCommentIndex;
+}
+
 function addFullImageHandler(data) {
   const pictureList = document.querySelectorAll('.picture');
   const bigPictureModal = document.querySelector('.big-picture');
-  const commentCount = document.querySelector('.social__comment-count');
-  const commentsLoader = document.querySelector('.comments-loader');
+
   pictureList.forEach((picture, pictureIndex) => {
     picture.addEventListener('click', (evt) => {
       evt.preventDefault();
       bigPictureModal.classList.remove('hidden');
       document.body.classList.add('modal-open');
       fullsizeImage(data[pictureIndex]);
-      commentCount.classList.add('hidden');
-      commentsLoader.classList.add('hidden');
+      commentIndex = 0;
+      showComments();
+      loadMoreCommentsButton.addEventListener('click', showComments);
     });
   });
 }
 
-export {addFullImageHandler};
+export {addFullImageHandler, loadMoreCommentsButton, showComments};
