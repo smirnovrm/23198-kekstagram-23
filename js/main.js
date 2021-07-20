@@ -1,5 +1,5 @@
 import {previewImage} from './image/preview-image.js';
-import {addFullImageHandler} from './image/fullsize-image.js';
+import {addFullImageHandler, loadMoreCommentsButton, showComments} from './image/fullsize-image.js';
 import {validComment, validTag} from './image/form-image.js';
 import {zoomImageDown, zoomImageUp} from './image/zoom-image.js';
 import {addEffect} from './image/add-effect.js';
@@ -18,12 +18,14 @@ const commentInput = uploadFormImage.querySelector('.text__description');
 document.querySelector('.big-picture__cancel').addEventListener('click', () => {
   bigPictureModal.classList.add('hidden');
   document.body.classList.remove('modal-open');
+  loadMoreCommentsButton.removeEventListener('click', showComments);
 });
 
 window.addEventListener('keydown', (evt) => {
   if (evt.keyCode === 27) {
     bigPictureModal.classList.add('hidden');
     document.body.classList.remove('modal-open');
+    loadMoreCommentsButton.removeEventListener('click', showComments);
   }
 });
 
