@@ -2,6 +2,7 @@ const bigPictureBlock = document.querySelector('.big-picture');
 const imageListComments = bigPictureBlock.querySelector('.social__comments');
 const loadMoreCommentsButton = bigPictureBlock.querySelector('.comments-loader');
 const bigPictureCommentsCount = bigPictureBlock.querySelector('.social__comment-count');
+const picturesContainer = document.querySelector('.pictures');
 let commentIndex = 0;
 const COMMENT_NUMBER = 5;
 
@@ -56,4 +57,4 @@ function addFullImageHandler(data) {
   });
 }
 
-export {addFullImageHandler, loadMoreCommentsButton, showComments};
+export {addFullImageHandler, loadMoreCommentsButton, showComments, picturesContainer};

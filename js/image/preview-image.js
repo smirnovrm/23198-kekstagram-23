@@ -1,9 +1,10 @@
+const pictureList = document.querySelector('.pictures');
+
 function previewImage(data) {
   const pictures = document.querySelector('.pictures');
   const templateFragment = document.querySelector('#picture').content;
   const template = templateFragment.querySelector('.picture');
   const fragment = document.createDocumentFragment();
-  // console.log(data.length);
 
   for (let i = 0; i < data.length; i++) {
     const element = template.cloneNode(true);
@@ -16,4 +17,4 @@ function previewImage(data) {
   pictures.appendChild(fragment);
 }
 
-export {previewImage};
+export {previewImage, pictureList};
