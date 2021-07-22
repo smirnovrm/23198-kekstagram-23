@@ -62,7 +62,7 @@ const effectsSettingList = {
     unit: '',
   },
   none: {
-    className: ['effects__preview--chrome', 'effects__preview--sepia', 'effects__preview--marvin', 'effects__preview--phobos', 'effects__preview--heat'],
+    classNames: ['effects__preview--chrome', 'effects__preview--sepia', 'effects__preview--marvin', 'effects__preview--phobos', 'effects__preview--heat'],
     filterName: 'unset',
   },
 };
@@ -70,7 +70,7 @@ const effectsSettingList = {
 function checkEffect(effect){
 
   if (effect === 'none') {
-    imagePreview.classList.remove(effectsSettingList[effect].className);
+    imagePreview.classList.remove(effectsSettingList[effect].classNames);
     imagePreview.style.filter = effectsSettingList[effect].filterName;
     effectLevelValue.value = '';
   }else {
@@ -90,7 +90,7 @@ function checkEffect(effect){
   }
 }
 
-function addEffect(evt) {
+function addEffectHandler(evt) {
   const effectName = evt.target.value;
   effectLevel.style.display = 'none';
   effectLevel.style.display = effectName !== 'none' ? 'block' : 'none';
@@ -105,4 +105,4 @@ function dropEffect() {
   document.querySelector('#effect-none').checked = true;
 }
 
-export {addEffect, dropEffect};
+export {addEffectHandler, dropEffect};

@@ -1,10 +1,11 @@
+const COMMENT_NUMBER = 5;
+
 const bigPictureBlock = document.querySelector('.big-picture');
 const imageListComments = bigPictureBlock.querySelector('.social__comments');
 const loadMoreCommentsButton = bigPictureBlock.querySelector('.comments-loader');
 const bigPictureCommentsCount = bigPictureBlock.querySelector('.social__comment-count');
 const picturesContainer = document.querySelector('.pictures');
 let commentIndex = 0;
-const COMMENT_NUMBER = 5;
 
 function fullsizeImage(data) {
   document.querySelector('.big-picture__img img').src = data.url;
@@ -28,7 +29,7 @@ function fullsizeImage(data) {
   listComments.appendChild(fragment);
 }
 
-function showComments() {
+function onShowComments() {
   const comments = imageListComments.children;
   const commentsCount = imageListComments.children.length;
   const nextCommentIndex = (commentsCount > commentIndex + COMMENT_NUMBER) ? commentIndex + COMMENT_NUMBER : commentsCount;
@@ -51,10 +52,10 @@ function addFullImageHandler(data) {
       document.body.classList.add('modal-open');
       fullsizeImage(data[pictureIndex]);
       commentIndex = 0;
-      showComments();
-      loadMoreCommentsButton.addEventListener('click', showComments);
+      onShowComments();
+      loadMoreCommentsButton.addEventListener('click', onShowComments);
     });
   });
 }
 
-export {addFullImageHandler, loadMoreCommentsButton, showComments, picturesContainer};
+export {addFullImageHandler, loadMoreCommentsButton, onShowComments, picturesContainer};
